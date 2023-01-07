@@ -1,12 +1,10 @@
 const router = require('express').Router();
 const { checkSchema } = require('express-validator');
 
-const StandardResponse = require('../utils/response');
 const validateSchema = require('../middlewares/validateRequest');
 const jobSchema = require('../middlewares/validationSchemas/job');
+const { addJob } = require('../handlers/job.handler');
 
-router.post('/', checkSchema(jobSchema), validateSchema, (req, res) => {
-  StandardResponse.success(res, {});
-});
+router.post('/', checkSchema(jobSchema), validateSchema, addJob);
 
 module.exports = router;
