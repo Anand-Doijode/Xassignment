@@ -21,10 +21,15 @@ module.exports = {
     optional: true,
     isArray: true,
   },
-  experienceLevel: {
+  expLevel: {
     in: ['body'],
     optional: true,
-    isInt: true,
+    isInt: {
+      options: {
+        min: 0,
+        max: 10,
+      },
+    },
     toInt: true,
   },
 };
