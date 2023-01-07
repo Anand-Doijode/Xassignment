@@ -7,7 +7,7 @@ const jobSchema = new Schema({
   description: String,
   email: String,
   requiredSkills: [String],
-  expereienceLevel: Number,
+  expLevel: Number,
 });
 
 const Job = mongoose.model('Job', jobSchema);
