@@ -1,11 +1,21 @@
 const mongoose = require('mongoose');
-// Set up default mongoose connection
-const mongoDB = 'mongodb://127.0.0.1/xshipment';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
-// Get the default connection
-const { connection } = mongoose;
-// Bind connection to error event (to get notification of connection errors)
-connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
-connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-module.exports = connection;
+mongoose.set('strictQuery', true);
+
+const mongoDB = 'mongodb://127.0.0.1/xshipment';
+const { connection } = mongoose;
+
+async function getInstance() {
+  if (connection.readyState !== 1) {
+    try {
+      await mongoose.connect(mongoDB, { useNewUrlParser: true });
+      connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+      console.log('Connected to MongoDB!');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return connection;
+}
+
+module.exports = { getInstance };
