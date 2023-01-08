@@ -91,4 +91,15 @@ module.exports = {
       StandardResponse.failure(res, error);
     }
   },
+
+  getApplicantsByJobId: async (req, res) => {
+    const { jobId } = req.query;
+    try {
+      const result = await Job.findById(jobId).select({ _id: 0, __v: 0, 'applicants._id': 0 });
+      return StandardResponse.success(res, result.toJSON());
+    } catch (error) {
+      console.error('Error in applyForJob(): ', error);
+      StandardResponse.failure(res, error);
+    }
+  },
 };

@@ -123,4 +123,12 @@ module.exports = {
       isString: true,
     },
   },
+
+  getApplicantsByJobId: {
+    jobId: {
+      in: ['query'],
+      isMongoId: true,
+      trim: true,
+    },
+  },
 };
