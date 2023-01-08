@@ -76,7 +76,6 @@ module.exports = {
         options: async (value) => {
           const expLevels = value.split(',');
           expLevels.forEach((exp) => {
-            console.log(`Number.isNaN(${exp}): ${Number.isNaN(exp)}`);
             if (isNaN(exp)) {
               throw new Error('Invalid value');
             }

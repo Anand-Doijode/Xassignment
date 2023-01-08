@@ -44,10 +44,9 @@ module.exports = {
     if (expLevel) {
       where.expLevel = expLevel.split(',');
     }
-    console.log('where: ', where);
 
     try {
-      const result = await Job.find(where).select({ _id: 0, __v: 0 });
+      const result = await Job.find(where).select({ _id: 0, __v: 0, applicants: 0 });
       return StandardResponse.success(res, result);
     } catch (error) {
       console.error('Error in getJob() ', error);
