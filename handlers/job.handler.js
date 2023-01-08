@@ -58,7 +58,9 @@ module.exports = {
     const { id } = req.params;
     try {
       const result = await Job.findById(id).select({ _id: 0, __v: 0 });
-      console.log('result: ', result);
+      if (!result) {
+        return StandardResponse.failure(res, { msg: 'Resource Not Found' }, 404);
+      }
       return StandardResponse.success(res, result.toJSON());
     } catch (error) {
       console.error('Error in getJobById: ', error);
