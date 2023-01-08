@@ -143,7 +143,7 @@ module.exports = {
       if (!job) {
         return StandardResponse.failure(res, { msg: 'Job does not exist' }, 404);
       }
-      await job.updateOne({ _id: id }, payload);
+      await Job.updateOne({ _id: id }, payload);
       return StandardResponse.success(res, {});
     } catch (error) {
       console.error('Error in updateJob(): ', error);
