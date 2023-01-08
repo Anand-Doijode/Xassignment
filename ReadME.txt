@@ -10,7 +10,7 @@ Installation:
 
 Notes:
   1. All the required features are implemented. 
-  2. From Bonus section, all the features except Authentication and Authorization are implemented.
+  2. From Bonus section, point 2 and 4 are implemented.
   3. You can refer to the Postman Collection for API endpoints.
   4. All the endpoints implementations can be found in routers/job.router.js
 
