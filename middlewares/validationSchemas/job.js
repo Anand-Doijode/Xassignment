@@ -130,4 +130,12 @@ module.exports = {
       trim: true,
     },
   },
+
+  deleteJobById: {
+    id: {
+      in: ['params'],
+      isMongoId: true,
+      trim: true,
+    },
+  },
 };

@@ -101,4 +101,15 @@ module.exports = {
       StandardResponse.failure(res, error);
     }
   },
+
+  deleteJobById: async (req, res) => {
+    const { id } = req.params;
+    try {
+      await Job.deleteOne({ id });
+      return StandardResponse.success(res, {});
+    } catch (error) {
+      console.error('Error in applyForJob(): ', error);
+      StandardResponse.failure(res, error);
+    }
+  },
 };
