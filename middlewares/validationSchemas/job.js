@@ -1,3 +1,5 @@
+const Job = require('../../models/job');
+
 module.exports = {
   createJob: {
     title: {
@@ -82,6 +84,43 @@ module.exports = {
           return true;
         },
       },
+    },
+  },
+
+  applyForJob: {
+    id: {
+      in: ['body'],
+      isMongoId: true,
+      bail: true,
+      trim: true,
+      custom: {
+        options: async (value) => {
+          if (!await Job.findById(value)) {
+            throw new Error('Job does not exist');
+          }
+        },
+        bail: true,
+      },
+    },
+    name: {
+      in: ['body'],
+      exists: true,
+      isString: true,
+      trim: true,
+    },
+    email: {
+      in: ['body'],
+      isEmail: true,
+      normalizeEmail: true,
+    },
+    resume: {
+      in: ['body'],
+      isURL: true,
+      exists: true,
+    },
+    coverLetter: {
+      in: ['body'],
+      isString: true,
     },
   },
 };

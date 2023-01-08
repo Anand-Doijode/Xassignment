@@ -66,4 +66,29 @@ module.exports = {
       StandardResponse.failure(res, error);
     }
   },
+
+  applyForJob: async (req, res) => {
+    const {
+      id, name, email, resume, coverLetter,
+    } = req.body;
+    const payload = {
+      name, email, resume, coverLetter,
+    };
+
+    try {
+      const job = await Job.findById(id);
+      const hasApplied = job.applicants.find((applicant) => applicant.email === email);
+      if (hasApplied) {
+        console.log(`${email} has already applied for the job ${id}`);
+        return StandardResponse.failure(res, { msg: 'Already applied' });
+      }
+
+      job.applicants.push(payload);
+      await job.save();
+      return StandardResponse.success(res, {});
+    } catch (error) {
+      console.error('Error in applyForJob(): ', error);
+      StandardResponse.failure(res, error);
+    }
+  },
 };
