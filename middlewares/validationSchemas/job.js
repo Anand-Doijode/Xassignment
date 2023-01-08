@@ -34,6 +34,7 @@ module.exports = {
       toInt: true,
     },
   },
+
   getJobById: {
     id: {
       in: ['params'],
@@ -41,6 +42,7 @@ module.exports = {
       trim: true,
     },
   },
+
   getJob: {
     title: {
       in: ['query'],

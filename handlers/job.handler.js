@@ -57,7 +57,6 @@ module.exports = {
 
   getJobById: async (req, res) => {
     const { id } = req.params;
-    console.log('id: ', id);
     try {
       const result = await Job.findById(id).select({ _id: 0, __v: 0 });
       console.log('result: ', result);
