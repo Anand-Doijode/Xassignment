@@ -105,10 +105,10 @@ module.exports = {
   deleteJobById: async (req, res) => {
     const { id } = req.params;
     try {
-      await Job.deleteOne({ id });
+      await Job.deleteOne({ _id: id });
       return StandardResponse.success(res, {});
     } catch (error) {
-      console.error('Error in applyForJob(): ', error);
+      console.error('Error in deleteJobById(): ', error);
       StandardResponse.failure(res, error);
     }
   },
