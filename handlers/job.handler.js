@@ -59,7 +59,7 @@ module.exports = {
     try {
       const result = await Job.findById(id).select({ _id: 0, __v: 0 });
       if (!result) {
-        return StandardResponse.failure(res, { msg: 'Resource Not Found' }, 404);
+        return StandardResponse.failure(res, { msg: 'Job does not exist' }, 404);
       }
       return StandardResponse.success(res, result.toJSON());
     } catch (error) {
@@ -78,6 +78,9 @@ module.exports = {
 
     try {
       const job = await Job.findById(id);
+      if (!job) {
+        return StandardResponse.failure(res, { msg: 'Job does not exist' }, 404);
+      }
       const hasApplied = job.applicants.find((applicant) => applicant.email === email);
       if (hasApplied) {
         console.log(`${email} has already applied for the job ${id}`);
@@ -97,6 +100,9 @@ module.exports = {
     const { jobId } = req.query;
     try {
       const result = await Job.findById(jobId).select({ _id: 0, __v: 0, 'applicants._id': 0 });
+      if (!result) {
+        return StandardResponse.failure(res, { msg: 'Job does not exist' }, 404);
+      }
       return StandardResponse.success(res, result.toJSON());
     } catch (error) {
       console.error('Error in applyForJob(): ', error);
@@ -107,7 +113,11 @@ module.exports = {
   deleteJobById: async (req, res) => {
     const { id } = req.params;
     try {
-      await Job.deleteOne({ _id: id });
+      const job = await Job.findById(id);
+      if (!job) {
+        return StandardResponse.failure(res, { msg: 'Job does not exist' }, 404);
+      }
+      await job.remove();
       return StandardResponse.success(res, {});
     } catch (error) {
       console.error('Error in deleteJobById(): ', error);
@@ -129,8 +139,11 @@ module.exports = {
       expLevel,
     };
     try {
-      const result = await Job.updateOne({ _id: id }, payload);
-      console.log('result: ', result);
+      const job = await Job.findById(id);
+      if (!job) {
+        return StandardResponse.failure(res, { msg: 'Job does not exist' }, 404);
+      }
+      await job.updateOne({ _id: id }, payload);
       return StandardResponse.success(res, {});
     } catch (error) {
       console.error('Error in updateJob(): ', error);

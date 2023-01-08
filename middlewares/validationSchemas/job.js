@@ -92,14 +92,6 @@ module.exports = {
       isMongoId: true,
       bail: true,
       trim: true,
-      custom: {
-        options: async (value) => {
-          if (!await Job.findById(value)) {
-            throw new Error('Job does not exist');
-          }
-        },
-        bail: true,
-      },
     },
     name: {
       in: ['body'],
