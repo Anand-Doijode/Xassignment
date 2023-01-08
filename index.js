@@ -2,7 +2,7 @@ require('dotenv').config();
 const Express = require('express');
 const { xss } = require('express-xss-sanitizer');
 const router = require('./routers/router');
-require('./utils/dbConnection').getInstance();
+require('./utils/dbConnection').initConnection();
 
 const app = new Express();
 const port = process.env.PORT;
