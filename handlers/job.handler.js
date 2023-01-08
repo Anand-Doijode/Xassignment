@@ -112,4 +112,28 @@ module.exports = {
       StandardResponse.failure(res, error);
     }
   },
+
+  updateJob: async (req, res) => {
+    const { id } = req.params;
+    const {
+      title, description, email, requiredSkills, expLevel,
+    } = req.body;
+
+    const payload = {
+      title,
+      description,
+      email,
+      requiredSkills,
+      expLevel,
+    };
+    try {
+      const result = await Job.updateOne({ _id: id }, payload);
+      console.log('result: ', result);
+      return StandardResponse.success(res, {});
+    } catch (error) {
+      console.error('Error in updateJob(): ', error);
+      StandardResponse.failure(res, error);
+    }
+  },
+
 };
