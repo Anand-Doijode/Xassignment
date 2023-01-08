@@ -3,8 +3,12 @@ const { checkSchema } = require('express-validator');
 
 const validateSchema = require('../middlewares/validateRequest');
 const jobSchema = require('../middlewares/validationSchemas/job');
-const { addJob } = require('../handlers/job.handler');
+const { addJob, getJob, getJobById } = require('../handlers/job.handler');
 
-router.post('/', checkSchema(jobSchema), validateSchema, addJob);
+router.post('/', checkSchema(jobSchema.createJob), validateSchema, addJob);
+
+router.get('/:id', checkSchema(jobSchema.getJobById), validateSchema, getJobById);
+
+router.get('/', checkSchema(jobSchema.getJob), validateSchema, getJob);
 
 module.exports = router;
