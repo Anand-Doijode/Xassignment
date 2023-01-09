@@ -5,7 +5,7 @@ const router = require('./routers/router');
 require('./utils/dbConnection').initConnection();
 
 const app = new Express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.use(xss());
 app.use(Express.json());
